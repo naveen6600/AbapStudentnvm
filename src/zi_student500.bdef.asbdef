@@ -1,0 +1,66 @@
+managed implementation in class zbp_i_student500 unique;
+//strict(2) ;
+
+with draft;
+define behavior for Zi_student500 alias stydebt
+persistent table zcim_student_500
+draft table zcim_dr_stu500
+
+lock master total etag lastchangedt
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  association _result{create;}
+  validation validateage on save { field age ; create; }
+
+  field ( numbering : managed , readonly ) Id;
+  field (readonly) genderdesc;
+  action ( features : instance) SetAdmitted result [1] $self ;
+  determination updatecousre on save { field Course; }
+
+
+
+  mapping for zcim_student_500
+  {
+  Id = id;
+  Firstname = firstname;
+  Lastname = lastname;
+  Age = age;
+  Course = course;
+  Courseduration = courseduration;
+  Status = status;
+  Gender = gender;
+  Dob =dob ;
+
+  }
+}
+define behavior for zi_result_ac500 alias Acresult
+
+persistent table zcim_result500
+draft table zcim_dr_res500
+lock dependent by _student
+
+authorization dependent by _student
+{
+update;
+delete;
+
+ association _student;
+ field (readonly) id;
+ field (readonly) Course_desc;
+ field (readonly) Semester_Current;
+ field (readonly) Semester_result;
+
+ mapping for zcim_result500{
+ Id = id;
+ Course = course;
+ Semester= semester;
+ Semresult = semresult;
+
+
+}
+}

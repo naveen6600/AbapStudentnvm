@@ -1,0 +1,83 @@
+@Metadata.layer:#PARTNER
+@UI:{ 
+headerInfo: {
+    typeName: 'Academic Result Details',
+    typeNamePlural: 'Academic Result Detailss',
+    
+    title: {
+        type: #STANDARD,
+        label: 'Result',
+        value: 'Id'     
+    }
+},
+presentationVariant: [{
+    
+    sortOrder: [{
+        by: 'Semester',
+        direction: #ASC
+    
+}] }]
+
+}
+@Search.searchable: true
+annotate entity ZC_result500
+    with 
+{
+@UI.facet: [{
+    id: '_result1',
+    purpose: #STANDARD,
+    position: 10,
+    label: 'Result',
+    type:#IDENTIFICATION_REFERENCE 
+   
+}]
+  @UI: { identification: [{ position : 10, label :'Student ID' }] }
+  @UI.hidden: true
+   Id;
+   @UI:{ lineItem: [ { position:20 , importance: #HIGH , label: 'Course' } ] }
+    @UI: { identification: [{ position : 20, label :'Course' }] }
+    @Search.defaultSearchElement: true
+    @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_COURSEHELP500', element: 'Value' },
+     distinctValues: true,
+     additionalBinding: [{localElement: 'Course_desc' , element:'Description', usage:#FILTER_AND_RESULT}]}]
+   Course;
+    @UI:{ lineItem: [ { position:30 , importance: #HIGH , label: 'Semester' } ] }
+    @UI: { identification: [{ position : 30, label :'Semester' }] }
+    
+     @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_SEMSTER', element: 'Value' },
+     distinctValues: true,
+     additionalBinding: [{localElement: 'Semester_Current' , element:'Description', usage:#FILTER_AND_RESULT}]}]
+    @Search.defaultSearchElement: true
+      
+   Semester;
+   @UI:{ lineItem: [ { position:40 , importance: #HIGH , label: 'SemesterResult' } ] }
+    @UI: { identification: [{ position : 40, label :'SemesterResult' }] }
+    @Search.defaultSearchElement: true
+    
+    @Consumption.valueHelpDefinition: [{ entity:{ name:'ZI_SEMESTER_RESULT500', element: 'Value' },
+     distinctValues: true,
+     additionalBinding: [{localElement: 'Semester_result' , element:'Description', usage:#FILTER_AND_RESULT}]}]
+   
+     
+   Semresult;
+   @UI:{ lineItem: [ { position:50 , importance: #HIGH , label: 'CourseDesc' } ] }
+   @UI: { identification: [{ position : 50, label :'Course Description' }] }
+   
+   
+   Course_desc;
+  @UI:{ lineItem: [ { position:60 , importance: #HIGH , label: 'Semester Result' } ] }
+   @UI: { identification: [{ position : 60, label :'Semester Result' }] }
+ 
+
+   Semester_result;
+    @UI:{ lineItem: [ { position:70 , importance: #HIGH , label: 'SemesterCurrent' } ] }
+    @UI: { identification: [{ position :70, label :'Current Semester' }] }
+ 
+   
+   Semester_Current;
+   /* Associations */
+//   @UI.lineItem: [{ position:80 }]
+//   _student;
+   
+    
+}

@@ -1,0 +1,5 @@
+@EndUserText.label: 'service defin'
+define service Zserv_studentC {
+  expose Zc_student5000 as STUDENT;
+  expose ZC_result500   as RESULT;
+}

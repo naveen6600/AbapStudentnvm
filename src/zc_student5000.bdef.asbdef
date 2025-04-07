@@ -1,0 +1,20 @@
+projection;
+use draft;
+define behavior for Zc_student5000 alias Studentx
+{
+
+  use create;
+  use update;
+  use delete;
+  use action SetAdmitted ;
+  use association _result{create;}
+
+
+
+}
+define behavior for Zc_result500 alias resultx
+{
+use update;
+use delete;
+use association _student;
+}
